@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+      <record id="config_parameter_veronica_url" model="ir.config_parameter" forcecreate="True">
+         <field name="key">veronica.url</field>
+         <field name="value">https://api-sbox.veronica.ec/api/v1.0/oauth/token?grant_type=password</field>
+      </record>
+
+      <record id="config_parameter_veronica_base_url" model="ir.config_parameter" forcecreate="True">
+         <field name="key">veronica.base.url</field>
+         <field name="value">https://api-sbox.veronica.ec</field>
+      </record>
+
+      <record id="config_parameter_veronica_auth_url" model="ir.config_parameter" forcecreate="True">
+         <field name="key">veronica.auth.url</field>
+         <field name="value">/api/v1.0/oauth/token?grant_type=password</field>
+      </record>
+
+      <record id="config_parameter_veronica_comprobantes_url" model="ir.config_parameter" forcecreate="True">
+         <field name="key">veronica.comprobantes.url</field>
+         <field name="value">/api/v1.0/comprobantes</field>
+      </record>
+         
+</odoo>

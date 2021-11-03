@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+<record id="action_veronica_auth_window" model="ir.actions.act_window">
+  <field name="name">Veronica Authorization</field>
+  <field name="res_model">veronica.auth</field>
+  <field name="view_mode">tree,form</field>
+</record>
+
+<menuitem id="menu_veronica_base"
+    sequence="100"
+    name="Veronica"
+    web_icon="veronica,static/description/icon.png"/>
+
+<menuitem id="menu_veronica_auth"
+    parent="menu_veronica_base"
+    sequence="20"
+    action="action_veronica_auth_window"/>
+
+<record id="veronica_auth_view_form" model="ir.ui.view">
+    <field name="model">veronica.auth</field>
+    <field name="arch" type="xml">
+        <form string="Veronica Authorization">
+            <sheet>
+                <group>
+                    <field name="username"/>
+                    <field name="password" password="True"/>
+                    <field name="active" widget="boolean_toggle"/>
+                </group>
+                <group colspan="4">
+                    <field name="client_id"/>
+                    <field name="client_secret" password="True"/>
+                    <button name="get_token" type="object" string="Test Connection" icon="fa-television"/>
+                </group>
+            </sheet>
+        </form>
+    </field>
+</record>
+
+<record id="veronica_auth_view_tree" model="ir.ui.view">
+    <field name="model">veronica.auth</field>
+    <field name="arch" type="xml">
+        <tree string="Veronica Authorization">
+            <field name="username"/>
+            <field name="client_id"/>
+        </tree>
+    </field>
+</record>
+
+</odoo>
