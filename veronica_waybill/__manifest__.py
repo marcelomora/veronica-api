@@ -1,12 +1,13 @@
-# Copyright 2021 Akretion (https://www.akretion.com).
+# -*- encoding: utf-8 -*-
+# Copyright 2021 Accioma (https://accioma.com).
 # @author marcelomora <java.diablo@gmail.com>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 {
-    "name": "Veronica",
-    "summary": "Veronica Open API integration",
+    "name": "Veronica Waybill",
+    "summary": "Veronica send ecuadorian waybill documents",
     "version": "14.0.1.0.0",
-    "category": "Accounting & Finance",
+    "category": "EDI",
     "website": "accioma.com",
     "author": "Accioma",
     "license": "AGPL-3",
@@ -17,16 +18,8 @@
         "bin": [],
     },
     "depends": [
-        "l10n_ec_edi",
+        "l10n_ec_waybill", "veronica",
     ],
     "data": [
-        "security/ir.model.access.csv",
-        "views/res_config_settings_views.xml",
-        "views/veronica_views.xml",
-        "data/settings_data.xml",
     ],
-    "demo": [
-    ],
-    "qweb": [
-    ]
 }

@@ -11,13 +11,21 @@ from odoo.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
 
-    
+        
 class VeronicaAuth(models.Model):
     _name = 'veronica.auth'
     _rec_name = 'username'
     _description = 'Veronica Auth'
 
-    company_id = fields.Many2one('res.company', string='Company', required=True, readonly=True, states={'draft': [('readonly', False)], 'refused': [('readonly', False)]}, default=lambda self: self.env.company)
+    company_id = fields.Many2one(
+        'res.company',
+        string='Company',
+        required=True,
+        readonly=True,
+        states={
+                'draft': [('readonly', False)],
+                'refused': [('readonly', False)]},
+            default=lambda self: self.env.company)
 
     username = fields.Char("Username")
     active = fields.Boolean("Active", default=True)
@@ -28,14 +36,10 @@ class VeronicaAuth(models.Model):
     token_to = fields.Datetime("Token To")
     access_token = fields.Char("Access Token")
     refresh_token = fields.Char("Refresh Token")
-    
+        
     def get_token(self):
         self.ensure_one()
-        url = "{}{}".format(
-            self.env['ir.config_parameter'].sudo().get_param("veronica.base.url"),
-            self.env['ir.config_parameter'].sudo().get_param("veronica.auth.url"))
-
-        _logger.info(url)
+        url = self.env['veronica.url_mgr'].get_token_url()
 
         payload={'username': self.username,
                  'password': self.password,}
@@ -45,9 +49,7 @@ class VeronicaAuth(models.Model):
                                  auth=(self.client_id, self.client_secret))
 
         if response.status_code != 200:
-            _logger.info(response)
             raise UserError(_("Failed to obtain token from Veronica server {}").format(response.status_code))
-        
 
         response_json = response.json()
 
@@ -55,7 +57,6 @@ class VeronicaAuth(models.Model):
         self.refresh_token = response_json["refresh_token"]
         self.token_to = fields.Datetime.now() + timedelta(seconds = int(response_json["expires_in"]) - 5)
         self.token_from = fields.Datetime.now()
-
 
     def get_access_token(self):
         self.ensure_one()

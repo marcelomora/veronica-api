@@ -5,3 +5,4 @@
 from . import res_config_settings
 from . import veronica_auth
 from . import account_edi_format
+from . import api_mgr
