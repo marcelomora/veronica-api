@@ -22,20 +22,9 @@ class AccountEdiFormat(models.Model):
     def _post_invoice_edi(self, invoices, test_mode=False):
         """Overrides"""
 
-        url = "{}{}".format(
-            self.env['ir.config_parameter'].sudo().get_param("veronica.base.url"),
-            self.env['ir.config_parameter'].sudo().get_param("veronica.comprobantes.url"))
-
         result = super(AccountEdiFormat, self)._post_invoice_edi(invoices, test_mode = test_mode)
 
         for move, values in result.items():
-            auth = self.env['veronica.auth'].search(
-                [('company_id', '=', move.company_id.id)]
-            )[0]
-
-            token = auth.get_access_token()
-            _logger.info(token)
-            _logger.info(url)
 
             _logger.info("result {}, values {}".format(move, values))
             xml_raw = values["attachment"].raw  #.decode("utf-8")
@@ -45,13 +34,8 @@ class AccountEdiFormat(models.Model):
 
             #  data = {'xml': xml}
             _logger.info(data)
-            headers = {
-                "Authorization": "Bearer {}".format(token),
-                'Content-Type': 'application/atom+xml'
-            }
-
-            response = requests.post(url, data=data, headers=headers)
-            _logger.info("Veronica response {}".format(response.json()))
+            ak = self.env['veronica.url_mgr'].send_data(move.company_id, data)
+            l10n_ec_move_access_key = ak
         return result
 
 
