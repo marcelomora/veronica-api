@@ -27,6 +27,8 @@ class VeronicaAuth(models.Model):
                 'refused': [('readonly', False)]},
             default=lambda self: self.env.company)
 
+    
+
     username = fields.Char("Username")
     active = fields.Boolean("Active", default=True)
     password = fields.Char("Password")
@@ -36,6 +38,8 @@ class VeronicaAuth(models.Model):
     token_to = fields.Datetime("Token To")
     access_token = fields.Char("Access Token")
     refresh_token = fields.Char("Refresh Token")
+
+
         
     def get_token(self):
         self.ensure_one()
@@ -62,7 +66,8 @@ class VeronicaAuth(models.Model):
         self.ensure_one()
 
         now = fields.Datetime.now()
-        if self.token_to > now:
+        _logger.info("now {}, afer {}".format(now, self.token_from + timedelta(minutes = 2)))
+        if self.token_from + timedelta(minutes = 2) > now:
             return self.access_token
 
         self.get_token()

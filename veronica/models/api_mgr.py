@@ -22,8 +22,8 @@ class VeronicaUrl_Mgr(models.TransientModel):
         env = self.env['ir.config_parameter'].sudo().get_param('l10n_ec_edi.environment_type')
         base_url = self.env['ir.config_parameter'].sudo().get_param("veronica.base.test.url")
 
-        if env == '1':
-            base_url = self.env['ir.config_parameter'].sudo().get_param("veronica.base.test.url")
+        if env == '2':
+            base_url = self.env['ir.config_parameter'].sudo().get_param("veronica.base.prod.url")
 
         if is_one_step:
             send_url = self.env['ir.config_parameter'].sudo().get_param("veronica.sri.url")
@@ -39,8 +39,8 @@ class VeronicaUrl_Mgr(models.TransientModel):
         env = self.env['ir.config_parameter'].sudo().get_param('l10n_ec_edi.environment_type')
         base_url = self.env['ir.config_parameter'].sudo().get_param("veronica.base.test.url")
 
-        if env == '1':
-            base_url = self.env['ir.config_parameter'].sudo().get_param("veronica.base.test.url")
+        if env == '2':
+            base_url = self.env['ir.config_parameter'].sudo().get_param("veronica.base.prod.url")
 
         auth_url = self.env['ir.config_parameter'].sudo().get_param("veronica.auth.url")
 
