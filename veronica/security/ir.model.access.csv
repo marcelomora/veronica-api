@@ -1,3 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_veronica_auth,veronica.auth,model_veronica_auth,account.group_account_manager,1,1,1,1
+access_veronica_url_mgr,access_veronica_url_mgr,model_veronica_url_mgr,base.group_user,1,1,1,1
 
