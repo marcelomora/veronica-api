@@ -5,7 +5,7 @@
 {
     "name": "Veronica",
     "summary": "Veronica Open API integration",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.0.1",
     "category": "Accounting & Finance",
     "website": "accioma.com",
     "author": "Accioma",

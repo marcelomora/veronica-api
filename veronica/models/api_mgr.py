@@ -56,7 +56,6 @@ class VeronicaUrl_Mgr(models.TransientModel):
         auth = self.env['veronica.auth'].search(
             [('company_id', '=', company_id.id)]
         )[0]
-        _logger.info(self.get_token_url())
         token = auth.get_access_token()
 
         _logger.info(data)
@@ -71,9 +70,14 @@ class VeronicaUrl_Mgr(models.TransientModel):
         vero_response = response.json()
         _logger.info("Veronica response {}".format(vero_response))
 
-        if vero_response.get('success', False):
-            return \
-                vero_response.get('result').get('claveAcceso') or \
-                vero_response.get('result').get('claveAccesoConsultada')
+        return vero_response
 
-        return False
+        #  if vero_response.get('success', False):
+        #      return \
+        #          vero_response.get('result').get('claveAcceso') or \
+        #          vero_response.get('result').get('claveAccesoConsultada')
+        #  else:
+        #      return vero_response.get('result')
+        #
+        #
+        #  return False

@@ -6,7 +6,7 @@
 {
     "name": "Veronica Withholding",
     "summary": "Send withholds to Veronica so it can be authorized by SRI",
-    "version": " 14.0.1.0.0",
+    "version": " 14.0.1.0.2",
     "category": "Accounting & Finance",
     "website": "accioma.com",
     "author": "Marcelo Mora (marcelo.mora@accioma.com)",

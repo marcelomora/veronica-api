@@ -27,14 +27,17 @@ class AccountMove(models.Model):
             elem = etree.XML(xml_raw, parser=parser)
             data = etree.tostring(elem).decode("utf-8")
 
-            ak = self.env['veronica.url_mgr'].send_data(move.company_id, data)
+            response = self.env['veronica.url_mgr'].send_data(move.company_id, data)
 
-            if not ak:
-                raise ValidationError(_("Veronica was not returned any access key. Please contact technical support"))
+            if response.get('success', False):
+                move.l10n_ec_withholding_access_key = response.get('result').get('claveAcceso') or \
+                    response.get('result').get('claveAccesoConsultada')
 
-            move.l10n_ec_withholding_access_key = ak
+            if response.get('success', False) == False:
+                defalut_msg = _("Veronica was not returned any access key. Please contact technical support")
+                result = response.get('result', False)
+                if result:
+                    msg = result.get('message', defalut_msg)
 
-            
-
-    
+                    move.message_post(body= "Veronica: " + msg)
 
